@@ -51,7 +51,10 @@ def get_phrases(text:str):
 
 @app.get('/get_information')
 def get_information(topic:str):
-    topic_list =wikipedia.search(topic)
+    try:
+        topic_list =wikipedia.search(topic)
+    else:
+        topic_list ='Could not Find a suitable answer at the moment'
     return {'text':wikipedia.summary(topic_list[0])}
 
 if __name__ == '__main__':

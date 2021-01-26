@@ -11,4 +11,16 @@ parameters={
 
 response=requests.get(url+'get_phrases',params=parameters)
 
-print(str(response.content))
+list_of_phrases=json.loads(response.content)['list']
+print(list_of_phrases)
+
+for i in list_of_phrases:
+	print(i)
+	parameters={
+		'topic':i
+	}
+	r=requests.get(url+'get_information',params=parameters)
+	print(r.content)
+	# summary=json.loads(r.content)
+	# print(summary)
+

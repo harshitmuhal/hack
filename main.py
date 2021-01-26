@@ -47,12 +47,12 @@ def get_phrases(text:str):
     rake_obj=Rake()
     text_=rake_obj.extract_keywords_from_text(text_)
     text_=rake_obj.get_ranked_phrases()
-    return text_
+    return {'list':text_}
 
 @app.get('/get_information')
 def get_information(topic:str):
     topic_list =wikipedia.search(topic)
-    return wikipedia.summary(topic_list[0])
+    return {'text':wikipedia.summary(topic_list[0])}
 
 if __name__ == '__main__':
     uvicorn.run(app, host='127.0.0.1', port=8000)

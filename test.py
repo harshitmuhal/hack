@@ -1,4 +1,5 @@
 import requests
+import json 
 
 text="I want to know about menstruation"
 
@@ -9,5 +10,5 @@ parameters={
 }
 
 response=requests.get(url+'get_phrases',params=parameters)
-print(response.url)
-print(response.content)
+
+print(str(response.content))

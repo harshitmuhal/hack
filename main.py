@@ -5,6 +5,7 @@ from rake_nltk import Rake
 from fastapi import FastAPI
 import uvicorn
 import nltk
+from textblob import TextBlob
 nltk.download('stopwords')
 nltk.download('punkt')
 
@@ -43,18 +44,25 @@ def get_phrases(text:str):
     print(text_)
     text_=text_[:-4]
 
+    #spell check
+    b=TextBlob(text_)
+    text_=str(b.correct())
+
     #Important Phrases extraction
     rake_obj=Rake()
     text_=rake_obj.extract_keywords_from_text(text_)
     text_=rake_obj.get_ranked_phrases()
+
     return {'list':text_}
 
 @app.get('/get_information')
 def get_information(topic:str):
-    topic_list ='Sorry Could not Find a suitable answer at the moment'
     try:
-        topic_list =wikipedia.search(topic)
-    return {'text':wikipedia.summary(topic_list[0])}
+        text=wikipedia.summary(topic)
+    except wikipedia.exceptions.DisambiguationError as e:
+        print(e.options[0])
+        text=wikipedia.summary(e.options[0])
+    return {'text':text}
 
 if __name__ == '__main__':
     uvicorn.run(app, host='127.0.0.1', port=8000)

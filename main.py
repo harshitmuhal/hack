@@ -6,6 +6,7 @@ from fastapi import FastAPI
 import uvicorn
 import nltk
 nltk.download('stopwords')
+nltk.download('punkt')
 
 app=FastAPI()
 

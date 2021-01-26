@@ -4,6 +4,8 @@ import requests
 from rake_nltk import Rake
 from fastapi import FastAPI
 import uvicorn
+import nltk
+nltk.download('stopwords')
 
 app=FastAPI()
 

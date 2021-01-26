@@ -58,7 +58,7 @@ def get_phrases(text:str):
 @app.get('/get_information')
 def get_information(topic:str):
     try:
-        text=wikipedia.summary(topic)
+        text=wikipedia.summary(topic) 
     except wikipedia.exceptions.DisambiguationError as e:
         print(e.options[0])
         text=wikipedia.summary(e.options[0])

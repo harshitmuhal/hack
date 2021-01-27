@@ -6,6 +6,8 @@ from fastapi import FastAPI
 import uvicorn
 import nltk
 from textblob import TextBlob
+from profanity_filter import ProfanityFilter
+
 nltk.download('stopwords')
 nltk.download('punkt')
 
@@ -62,6 +64,13 @@ def get_information(topic:str):
     except wikipedia.exceptions.DisambiguationError as e:
         print(e.options[0])
         text=wikipedia.summary(e.options[0])
+    return {'text':text}
+
+@app.get('/detect_profanity')
+def detect_profanity(text:str):
+    pf = ProfanityFilter()
+    text=pf.censor(text)
+    print(text)
     return {'text':text}
 
 if __name__ == '__main__':

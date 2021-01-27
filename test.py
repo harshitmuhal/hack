@@ -10,7 +10,6 @@ parameters={
 }
 
 response=requests.get(url+'get_phrases',params=parameters)
-print(response.content)
 list_of_phrases=json.loads(response.content)['list']
 print(list_of_phrases)
 

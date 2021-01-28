@@ -7,11 +7,17 @@ import uvicorn
 import nltk
 from textblob import TextBlob
 from profanity_filter import ProfanityFilter
+from fastapi.middleware.cors import CORSMiddleware
 
 nltk.download('stopwords')
 nltk.download('punkt')
 
 app=FastAPI()
+
+origins = [
+    "http://localhost",
+    "http://localhost:8000",
+]
 
 def change_slang(slangText):
     prefixStr = '<div class="translation-text">'

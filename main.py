@@ -68,7 +68,7 @@ def get_information(topic:str):
 
 @app.get('/detect_profanity')
 def detect_profanity(text:str):
-    pf = ProfanityFilter()
+    pf = ProfanityFilter(languages=['en'])
     text=pf.censor(text)
     print(text)
     return {'text':text}
